@@ -1,0 +1,86 @@
+\documentclass[11pt]{article}
+\usepackage{acl2016}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+
+\usepackage{graphicx}
+
+\usepackage[fleqn]{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+
+\usepackage{cite}
+\usepackage{algorithm2e}
+\usepackage{array}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{url}
+\usepackage{tabularx}
+
+\newcommand{\bs}{\boldsymbol}  
+\newcommand{\wrtd}{\mathrm{d}}
+
+\makeatletter
+\makeatother %some sort of hack related to the symbol @
+
+\DeclareMathOperator*{\argmax}{\arg\!\max\!} %argmax operator
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{ 
+Personalised Models of Argument Convincingness
+}
+
+\author{\IEEEauthorblockN{Anonymous}
+\IEEEauthorblockA{Anonymous, \\
+Anonymous \\
+Email: anonymous}
+\and
+\IEEEauthorblockN{Anonymous}
+\IEEEauthorblockA{Anonymous, \\
+Anonymous \\
+Email: anonymous}
+\and
+\IEEEauthorblockN{Anonymous}
+\IEEEauthorblockA{Anonymous, \\
+Anonymous \\
+Email: anonymous}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+\end{abstract}
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%\IEEEpeerreviewmaketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sections/intro}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% use section* for acknowledgment
+%\section*{Acknowledgments}
+
+% \addcontentsline{toc}{chapter}{Bibliography}
+%\bibliographystyle{apalike}
+\bibliographystyle{IEEEtran}
+\bibliography{simpson_personalized_argumentation}
+
+\end{document}

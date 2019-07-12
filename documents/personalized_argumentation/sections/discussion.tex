@@ -1,0 +1,22 @@
+\section{Future Work}
+
+The collaborative preference model can be adapted so that it can be trained using 
+classification data, scores/ratings (a regression task), or a mixture of different 
+observation types by applying a different likelihood. 
+The core of the method is the abstraction of a latent function over items and people, 
+dependent on latent features of items and people, with the ability to include side information 
+and observed features.
+Future work will therefore investigate the ability to learn from multiple types of labelled data, 
+(rather than only using preference pairs).
+
+A further direction for future work is to apply this model to transfer learning: 
+instead of modelling different latent functions per person, we model latent functions per task. 
+Tasks for which the target function follows a similar pattern would then share information in 
+a collaborative manner, so that training data for one task can inform similar tasks. This may be 
+useful when data is limited, e.g. when performing domain adaptation. In the latter case, there would
+need to be sufficient similarity between the features of the texts that are being classified for 
+the collaborative effect to take place. 
+For example, in argument mining, we may have several training datasets from different topics,
+which can be used to learn a model of argument convincingness. Applying a collaborative model would
+identify topics with common latent features, which would inform predictions on the target domain 
+in parts of the feature space with no training data.

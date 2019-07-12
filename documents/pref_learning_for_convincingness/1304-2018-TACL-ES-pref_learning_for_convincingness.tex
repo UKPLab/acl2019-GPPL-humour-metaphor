@@ -1,0 +1,105 @@
+\documentclass[11pt,letterpaper]{article}
+\usepackage[letterpaper]{geometry}
+\usepackage{acl2012}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage[fleqn]{amsmath}
+\usepackage{multirow}
+\usepackage{url}
+\makeatletter
+\newcommand{\@BIBLABEL}{\@emptybiblabel}
+\newcommand{\@emptybiblabel}[1]{}
+\makeatother
+\usepackage[
+            pdfauthor={Edwin Simpson and Iryna Gurevych},
+            pdftitle={Finding Convincing Arguments Using Scalable Bayesian Preference Learning},
+            pdfsubject={Computer Science},
+            pdfkeywords={argument mining, machine learning, NLP, Bayesian methods, variational inference, SVI, convincingness},
+            hidelinks,
+            bookmarks=false]{hyperref}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
+\usepackage[draft]{todonotes}
+
+\usepackage{graphicx}
+\usepackage{amsfonts}
+\usepackage{algorithm2e}
+\usepackage{array}
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{tabularx}
+\usepackage{numprint}
+
+\newcommand{\bs}{\boldsymbol}  
+\newcommand{\wrtd}{\mathrm{d}}
+
+\makeatletter
+\makeatother %some sort of hack related to the symbol @
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{ 
+Finding Convincing Arguments Using Scalable Bayesian Preference Learning
+}
+
+\author{Edwin Simpson and Iryna Gurevych\\
+  Ubiquitous Knowledge Processing Lab (UKP)\\
+  Department of Computer Science \\
+  Technische Universit{\"a}t Darmstadt  \\
+  {\tt \{simpson, gurevych\}@ukp.informatik.tu-darmstadt.de} \\}
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+We introduce a scalable Bayesian preference learning method for identifying
+convincing arguments in the absence of gold-standard ratings or rankings.
+In contrast to previous work, we avoid the need for separate methods
+to perform quality control on training data, predict rankings and perform pairwise classification.
+Bayesian approaches are an effective solution when faced with sparse or noisy training data, 
+but have not previously been used to identify convincing arguments.
+One issue is scalability, which we address by developing a 
+stochastic variational inference method for Gaussian process (GP) preference learning.
+We show how our method can be applied to predict argument convincingness from crowdsourced data, 
+outperforming the previous state-of-the-art, particularly when trained with small amounts of unreliable data.  
+We demonstrate how the Bayesian approach enables more effective active learning,
+thereby reducing the amount of data required to identify convincing arguments for new users and domains.
+While word embeddings are principally used with neural networks, our results show that word embeddings in combination with linguistic features also benefit GPs when predicting argument convincingness.
+\end{abstract}
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+%\IEEEpeerreviewmaketitle    
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{sections/intro}
+\input{sections/method}
+\input{sections/experiments}
+\input{sections/discussion}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% use section* for acknowledgement
+\section*{Acknowledgements}
+
+This work has been supported by the German Federal Ministry of Education and Research (BMBF) 
+under the promotional reference 01UG1416B (CEDIFOR).
+It also received funding from the European Union's
+Horizon 2020 research and innovation programme (H2020-EINFRA-2014-2) under grant agreement No. 654021 
+(Open-MinTeD). It reflects only the authors’ views and the EU is 
+not liable for any use that may be made of the information contained therein. 
+We would like to thank the TACL editors and reviewers for their effort and the valuable feedback we received from them.
+
+\bibliographystyle{acl2012}
+\bibliography{simpson_pref_learning_for_convincingness}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

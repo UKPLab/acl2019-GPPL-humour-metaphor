@@ -1,0 +1,372 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\citename{Arthur and Vassilvitskii}2007]{arthur2007k}
+David Arthur and Sergei Vassilvitskii.
+\newblock 2007.
+\newblock k-means++: the advantages of careful seeding.
+\newblock In {\em Proceedings of the Eighteenth Annual ACM-SIAM Symposium on
+  Discrete Algorithms}, pages 1027--1035. Society for Industrial and Applied
+  Mathematics.
+
+\bibitem[\protect\citename{Beck \bgroup et al.\egroup }2014]{beck2014joint}
+Daniel Beck, Trevor Cohn, and Lucia Specia.
+\newblock 2014.
+\newblock Joint emotion analysis via multi-task {Gaussian} processes.
+\newblock In {\em Proceedings of the 2014 Conference on Empirical Methods in
+  Natural Language Processing}, pages 1798--1803. ACL.
+
+\bibitem[\protect\citename{Blei \bgroup et al.\egroup }2003]{blei2003latent}
+David~M Blei, Andrew~Y Ng, and Michael~I Jordan.
+\newblock 2003.
+\newblock Latent {Dirichlet} allocation.
+\newblock {\em Journal of Machine Learning Research}, 3(Jan):993--1022.
+
+\bibitem[\protect\citename{Boudry \bgroup et al.\egroup }2015]{boudry2015fake}
+Maarten Boudry, Fabio Paglieri, and Massimo Pigliucci.
+\newblock 2015.
+\newblock The fake, the flimsy, and the fallacious: demarcating arguments in
+  real life.
+\newblock {\em Argumentation}, 29(4):431--456.
+
+\bibitem[\protect\citename{Bradley and Terry}1952]{bradley1952rank}
+Ralph~Allan Bradley and Milton~E Terry.
+\newblock 1952.
+\newblock Rank analysis of incomplete block designs: I. the method of paired
+  comparisons.
+\newblock {\em Biometrika}, 39(3/4):324--345.
+
+\bibitem[\protect\citename{Cawley}2011]{cawley2011baseline}
+Gavin~C Cawley.
+\newblock 2011.
+\newblock Baseline methods for active learning.
+\newblock In {\em Proceedings of the Active Learning and Experimental Design
+  Workshop in Conjunction with AISTATS 2010}, pages 47--57.
+
+\bibitem[\protect\citename{Chen and Ng}2016]{chen2016joint}
+Chen Chen and Vincent Ng.
+\newblock 2016.
+\newblock Joint inference over a lightly supervised information extraction
+  pipeline: Towards event coreference resolution for resource-scarce languages.
+\newblock In {\em Proceedings of the Thirtieth AAAI Conference on Artificial
+  Intelligence}, pages 2913--2920.
+
+\bibitem[\protect\citename{Chu and Ghahramani}2005]{chu2005preference}
+Wei Chu and Zoubin Ghahramani.
+\newblock 2005.
+\newblock Preference learning with {Gaussian} processes.
+\newblock In {\em Proceedings of the 22nd International Conference on Machine
+  learning}, pages 137--144. ACM.
+
+\bibitem[\protect\citename{Cohn and Specia}2013]{cohn2013modelling}
+Trevor Cohn and Lucia Specia.
+\newblock 2013.
+\newblock Modelling annotator bias with multi-task {Gaussian} processes: An
+  application to machine translation quality estimation.
+\newblock In {\em Proceedings of the 51st Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers)}, pages 32--42.
+
+\bibitem[\protect\citename{Collobert \bgroup et al.\egroup
+  }2011]{collobert2011natural}
+Ronan Collobert, Jason Weston, L{\'e}on Bottou, Michael Karlen, Koray
+  Kavukcuoglu, and Pavel Kuksa.
+\newblock 2011.
+\newblock Natural language processing (almost) from scratch.
+\newblock {\em Journal of Machine Learning Research}, 12(Aug):2493--2537.
+
+\bibitem[\protect\citename{Felt \bgroup et al.\egroup }2016]{felt2016semantic}
+Paul Felt, Eric~K. Ringger, and Kevin~D. Seppi.
+\newblock 2016.
+\newblock Semantic annotation aggregation with conditional crowdsourcing models
+  and word embeddings.
+\newblock In {\em Proceedings of COLING 2016, the 26th International Conference
+  on Computational Linguistics: Technical Papers}, pages 1787--1796.
+
+\bibitem[\protect\citename{Gretton \bgroup et al.\egroup
+  }2012]{gretton2012optimal}
+Arthur Gretton, Dino Sejdinovic, Heiko Strathmann, Sivaraman Balakrishnan,
+  Massimiliano Pontil, Kenji Fukumizu, and Bharath~K. Sriperumbudur.
+\newblock 2012.
+\newblock Optimal kernel choice for large-scale two-sample tests.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  1205--1213.
+
+\bibitem[\protect\citename{Guyon \bgroup et al.\egroup }2011]{guyon2011results}
+Isabelle Guyon, Gavin Cawley, Gideon Dror, and Vincent Lemaire.
+\newblock 2011.
+\newblock Results of the active learning challenge.
+\newblock In {\em Proceedings of the Active Learning and Experimental Design
+  Workshop in Conjunction with AISTATS 2010}, pages 19--45.
+
+\bibitem[\protect\citename{Habernal and Gurevych}2016]{habernal2016argument}
+Ivan Habernal and Iryna Gurevych.
+\newblock 2016.
+\newblock {Which argument is more convincing? Analyzing and predicting
+  convincingness of Web arguments using bidirectional LSTM}.
+\newblock In {\em Proceedings of the 54th Annual Meeting of the Association for
+  Computational Linguistics (Volume 1: Long Papers)}, pages 1589--1599.
+
+\bibitem[\protect\citename{Hensman \bgroup et al.\egroup
+  }2015]{hensman_scalable_2015}
+James Hensman, Alexander G. de~G. Matthews, and Zoubin Ghahramani.
+\newblock 2015.
+\newblock Scalable {Variational} {Gaussian} {Process} {Classification}.
+\newblock In {\em Proceedings of the Eighteenth International Conference on
+  Artificial Intelligence and Statistics}, pages 351--360.
+
+\bibitem[\protect\citename{Hoffman \bgroup et al.\egroup
+  }2013]{hoffman2013stochastic}
+Matthew~D. Hoffman, David~M. Blei, Chong Wang, and John~William Paisley.
+\newblock 2013.
+\newblock Stochastic variational inference.
+\newblock {\em Journal of Machine Learning Research}, 14(1):1303--1347.
+
+\bibitem[\protect\citename{Hovy \bgroup et al.\egroup }2013]{hovy2013learning}
+Dirk Hovy, Taylor Berg-Kirkpatrick, Ashish Vaswani, and Eduard~H. Hovy.
+\newblock 2013.
+\newblock Learning whom to trust with {MACE}.
+\newblock In {\em Proceedings of NAACL-HLT 2013}, pages 1120--1130. ACL.
+
+\bibitem[\protect\citename{Joachims}2002]{joachims2002optimizing}
+Thorsten Joachims.
+\newblock 2002.
+\newblock Optimizing search engines using clickthrough data.
+\newblock In {\em Proceedings of the Eighth ACM SIGKDD International Conference
+  on Knowledge Discovery and Data Mining}, pages 133--142. ACM.
+
+\bibitem[\protect\citename{Kendall}1948]{kendall1948rank}
+Maurice~George Kendall.
+\newblock 1948.
+\newblock {\em Rank correlation methods.}
+\newblock Griffin.
+
+\bibitem[\protect\citename{Kenter \bgroup et al.\egroup
+  }2016]{kenter2016siamesecbow}
+Tom Kenter, Alexey Borisov, and Maarten de~Rijke.
+\newblock 2016.
+\newblock Siamese {CBOW:} {Optimizing} word embeddings for sentence
+  representations.
+\newblock In {\em Proceedings of the The 54th Annual Meeting of the Association
+  for Computational Linguistics (Volume 1: Long Papers)}, pages 941--951.
+
+\bibitem[\protect\citename{Kido and Okamoto}2017]{kido2017}
+Hiroyuki Kido and Keishi Okamoto.
+\newblock 2017.
+\newblock A {Bayesian} approach to argument-based reasoning for attack
+  estimation.
+\newblock In {\em Proceedings of the Twenty-Sixth International Joint
+  Conference on Artificial Intelligence}, pages 249--255.
+
+\bibitem[\protect\citename{Kingsley and Brown}2010]{kingsley2006preference}
+David~C. Kingsley and Thomas~C. Brown.
+\newblock 2010.
+\newblock Preference uncertainty, preference refinement and paired comparison
+  experiments.
+\newblock {\em Land Economics}, 86(3):530--544.
+
+\bibitem[\protect\citename{Kiros \bgroup et al.\egroup }2015]{kiros2015skip}
+Ryan Kiros, Yukun Zhu, Ruslan~R. Salakhutdinov, Richard Zemel, Raquel Urtasun,
+  Antonio Torralba, and Sanja Fidler.
+\newblock 2015.
+\newblock Skip-thought vectors.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  3294--3302.
+
+\bibitem[\protect\citename{Lampos \bgroup et al.\egroup
+  }2014]{lampos2014predicting}
+Vasileios Lampos, Nikolaos Aletras, Daniel Preo{\c{t}}iuc-Pietro, and Trevor
+  Cohn.
+\newblock 2014.
+\newblock Predicting and characterising user impact on {Twitter}.
+\newblock In {\em Proceedings of the 14th Conference of the European Chapter of
+  the Association for Computational Linguistics}, pages 405--413.
+
+\bibitem[\protect\citename{Lu and Boutilier}2011]{lu2011learning}
+Tyler Lu and Craig Boutilier.
+\newblock 2011.
+\newblock Learning mallows models with pairwise preferences.
+\newblock In {\em Proceedings of the 28th International Conference on Machine
+  Learning}, pages 145--152.
+
+\bibitem[\protect\citename{Luce}1959]{luce1959possible}
+R.~Duncan Luce.
+\newblock 1959.
+\newblock On the possible psychophysical laws.
+\newblock {\em Psychological Review}, 66(2):81.
+
+\bibitem[\protect\citename{Lukin \bgroup et al.\egroup
+  }2017]{lukin2017argument}
+Stephanie Lukin, Pranav Anand, Marilyn Walker, and Steve Whittaker.
+\newblock 2017.
+\newblock Argument strength is in the eye of the beholder: Audience effects in
+  persuasion.
+\newblock In {\em Proceedings of the 15th Conference of the European Chapter of
+  the Association for Computational Linguistics}, pages 742--753.
+
+\bibitem[\protect\citename{Mallows}1957]{mallows1957non}
+Colin~L Mallows.
+\newblock 1957.
+\newblock Non-null ranking models. i.
+\newblock {\em Biometrika}, 44(1/2):114--130.
+
+\bibitem[\protect\citename{Mercier and Sperber}2011]{mercier2011humans}
+Hugo Mercier and Dan Sperber.
+\newblock 2011.
+\newblock Why do humans reason? {Arguments} for an argumentative theory.
+\newblock {\em Behavioral and Brain Sciences}, 34(2):57--74.
+
+\bibitem[\protect\citename{Monteserin and
+  Amandi}2013]{monteserin2013reinforcement}
+Ariel Monteserin and Anal{\'\i}a Amandi.
+\newblock 2013.
+\newblock A reinforcement learning approach to improve the argument selection
+  effectiveness in argumentation-based negotiation.
+\newblock {\em Expert Systems with Applications}, 40(6):2182--2188.
+
+\bibitem[\protect\citename{Mosteller}2006]{mosteller2006remarks}
+Frederick Mosteller.
+\newblock 2006.
+\newblock Remarks on the method of paired comparisons: I. {The} least squares
+  solution assuming equal standard deviations and equal correlations.
+\newblock In {\em Selected Papers of Frederick Mosteller}, pages 157--162.
+  Springer.
+
+\bibitem[\protect\citename{Nickisch and
+  Rasmussen}2008]{nickisch2008approximations}
+Hannes Nickisch and Carl~Edward Rasmussen.
+\newblock 2008.
+\newblock Approximations for binary {Gaussian} process classification.
+\newblock {\em Journal of Machine Learning Research}, 9(Oct):2035--2078.
+
+\bibitem[\protect\citename{Persing and Ng}2017]{persing2017can}
+Isaac Persing and Vincent Ng.
+\newblock 2017.
+\newblock Why {can't} you convince me? {Modeling} weaknesses in unpersuasive
+  arguments.
+\newblock In {\em Proceedings of the 26th International Joint Conference on
+  Artificial Intelligence}, pages 4082--4088.
+
+\bibitem[\protect\citename{Plackett}1975]{plackett1975analysis}
+Robin~L. Plackett.
+\newblock 1975.
+\newblock The analysis of permutations.
+\newblock {\em Applied Statistics}, pages 193--202.
+
+\bibitem[\protect\citename{Rasmussen and
+  Williams}2006]{rasmussen_gaussian_2006}
+Carl~E. Rasmussen and Christopher K.~I. Williams.
+\newblock 2006.
+\newblock {Gaussian} processes for machine learning.
+\newblock {\em The {MIT} Press, Cambridge, {MA}, {USA}}, 38:715--719.
+
+\bibitem[\protect\citename{Reece \bgroup et al.\egroup
+  }2011]{reece2011determining}
+Steven Reece, Stephen Roberts, David Nicholson, and Chris Lloyd.
+\newblock 2011.
+\newblock Determining intent using hard/soft data and {Gaussian} process
+  classifiers.
+\newblock In {\em Proceedings of the 14th International Conference on
+  Information Fusion}, pages 1--8. IEEE.
+
+\bibitem[\protect\citename{Rosenfeld and Kraus}2016]{rosenfeld2016providing}
+Ariel Rosenfeld and Sarit Kraus.
+\newblock 2016.
+\newblock Providing arguments in discussions on the basis of the prediction of
+  human argumentative behavior.
+\newblock {\em ACM Transactions on Interactive Intelligent Systems (TiiS)},
+  6(4):30.
+
+\bibitem[\protect\citename{Settles}2010]{settles2010active}
+Burr Settles.
+\newblock 2010.
+\newblock Active learning literature survey.
+\newblock {\em University of Wisconsin, Madison}, 52(55-66):11.
+
+\bibitem[\protect\citename{Simpson \bgroup et al.\egroup
+  }2015]{simpson2015language}
+Edwin~D. Simpson, Matteo Venanzi, Steven Reece, Pushmeet Kohli, John Guiver,
+  Stephen~J. Roberts, and Nicholas~R. Jennings.
+\newblock 2015.
+\newblock Language understanding in the wild: Combining crowdsourcing and
+  machine learning.
+\newblock In {\em Proceedings of the 24th International Conference on World
+  Wide Web}, pages 992--1002.
+
+\bibitem[\protect\citename{Srivastava \bgroup et al.\egroup
+  }2014]{srivastava2014dropout}
+Nitish Srivastava, Geoffrey~E. Hinton, Alex Krizhevsky, Ilya Sutskever, and
+  Ruslan~R. Salakhutdinov.
+\newblock 2014.
+\newblock Dropout: {A} simple way to prevent neural networks from overfitting.
+\newblock {\em Journal of machine learning research}, 15(1):1929--1958.
+
+\bibitem[\protect\citename{Steinberg and Bonilla}2014]{steinberg2014extended}
+Daniel~M. Steinberg and Edwin~V. Bonilla.
+\newblock 2014.
+\newblock Extended and unscented {Gaussian} processes.
+\newblock In {\em Advances in Neural Information Processing Systems}, pages
+  1251--1259.
+
+\bibitem[\protect\citename{Tan \bgroup et al.\egroup }2016]{tan2016winning}
+Chenhao Tan, Vlad Niculae, Cristian Danescu-Niculescu-Mizil, and Lillian Lee.
+\newblock 2016.
+\newblock Winning arguments: Interaction dynamics and persuasion strategies in
+  good-faith online discussions.
+\newblock In {\em Proceedings of the 25th International Conference on World
+  Wide Web}, pages 613--624.
+
+\bibitem[\protect\citename{Teh \bgroup et al.\egroup }2005]{teh2005sharing}
+Yee~W. Teh, Michael~I. Jordan, Matthew~J. Beal, and David~M. Blei.
+\newblock 2005.
+\newblock Sharing clusters among related groups: Hierarchical {Dirichlet}
+  processes.
+\newblock In {\em Advances in neural information processing systems}, pages
+  1385--1392.
+
+\bibitem[\protect\citename{Thurstone}1927]{thurstone1927law}
+Louis~L Thurstone.
+\newblock 1927.
+\newblock A law of comparative judgment.
+\newblock {\em Psychological review}, 34(4):273.
+
+\bibitem[\protect\citename{Titov and Klementiev}2012]{titov2012bayesian}
+Ivan Titov and Alexandre Klementiev.
+\newblock 2012.
+\newblock A {Bayesian} approach to unsupervised semantic role induction.
+\newblock In {\em Proceedings of the 13th Conference of the European Chapter of
+  the Association for Computational Linguistics}, pages 12--22.
+
+\bibitem[\protect\citename{Wachsmuth \bgroup et al.\egroup
+  }2017]{wachsmuth2017argumentation}
+Henning Wachsmuth, Nona Naderi, Ivan Habernal, Yufang Hou, Graeme Hirst, Iryna
+  Gurevych, and Benno Stein.
+\newblock 2017.
+\newblock Argumentation quality assessment: Theory vs. practice.
+\newblock In {\em Proceedings of the 55th Annual Meeting of the Association for
+  Computational Linguistics (Volume 2: Short Papers)}, pages 250--255.
+
+\bibitem[\protect\citename{Wei \bgroup et al.\egroup }2016a]{wei2016post}
+Zhongyu Wei, Yang Liu, and Yi~Li.
+\newblock 2016a.
+\newblock Is this post persuasive? {Ranking} argumentative comments in online
+  forum.
+\newblock In {\em Proceedings of the 54th Annual Meeting of the Association for
+  Computational Linguistics (Volume 2: Short Papers)}, pages 195--200.
+
+\bibitem[\protect\citename{Wei \bgroup et al.\egroup
+  }2016b]{wei2016preliminary}
+Zhongyu Wei, Yandi Xia, Chen Li, Yang Liu, Zachary Stallbohm, Yi~Li, and Yang
+  Jin.
+\newblock 2016b.
+\newblock A preliminary study of disputation behavior in online debating forum.
+\newblock In {\em Proceedings of the Third Workshop on Argument Mining
+  (ArgMining2016)}, pages 166--171.
+
+\bibitem[\protect\citename{Xiong \bgroup et al.\egroup
+  }2011]{xiong2011bayesian}
+Hui~Yuan Xiong, Yoseph Barash, and Brendan~J. Frey.
+\newblock 2011.
+\newblock Bayesian prediction of tissue-regulated splicing using {RNA} sequence
+  and cellular context.
+\newblock {\em Bioinformatics}, 27(18):2554--2562.
+
+\end{thebibliography}

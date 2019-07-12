@@ -1,0 +1,3 @@
+- remove unnecessary files
+- change paths
+- add remaining resource preprocessing

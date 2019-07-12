@@ -1,0 +1,203 @@
+\section{Scalable Inference}\label{sec:inf}
+
+Given a set of pairwise labels, $\bs y$, 
+the goal is to infer the posterior distribution over the preference values $\bs f$, in the single
+user case, or $\mathbf F=\mathbf V \mathbf W^T$ in the multi-user case. 
+Previous approaches include a Laplace approximation for the single user case~\cite{chu2005preference}
+and a combination of expectation propagation (EP) with variational Bayes (VB) for a 
+multi-user model~\cite{houlsby2012collaborative}.
+The Laplace approximation is a maximum a-posteriori (MAP) solution that
+takes the most probable values of parameters rather than integrating over their distributions
+and has been shown to perform poorly for tasks such as classification~\cite{nickisch2008approximations}. 
+EP approximates the true posterior with a simpler, factorized distribution
+that can be learned using an iterative algorithm.
+The true posterior is multi-modal, since the latent factors can be re-ordered arbitrarily without
+affecting $\mathbf F$: this is the non-identifiability problem.
+A standard EP approximation would average these modes before predicting $\mathbf F$,
+producing uninformative predictions over $\mathbf F$.
+~\citet{houlsby2012collaborative} resolve this by incorporating a VB step, which approximates a single mode.
+A drawback of EP is that unlike VB, convergence is not guaranteed~\cite{minka2001expectation}.
+
+<Advantages of VB>
+
+<Problems with Scalability -- sparse GPs, including solution by Houlsby, scaling with no. pairwise labels>
+
+%do they also linearise in the same way? -- both linearise. But EP uses a joint over y and f as its approximation to p(y|f), then optimises the parameters iteratively. It's not guaranteed to converge. Variational EGP instead approximates
+% p(y|f) directly with the best fit Gaussian. It's not clear whether this could be updated iteratively but it doesn't
+% seem to work if done simultaneously with the other variables we need to learn (the linearisation), 
+% perhaps because the algorithm for learning the weights breaks if the variance of q(y|f), Q, keeps changing. 
+% Possibly because Q does not change incrementally. So it's
+% possible that an outer loop could be used.
+
+The cost of inference can be reduced using a \emph{sparse} approximation based on a set of 
+\emph{inducing points}, which act as substitutes for the set of points in the training dataset.
+By choosing a fixed number of inducing points, $M \ll N$, the computational cost is fixed at $\mathcal{O}(M^3)$.
+These points must be selected so as to give a good approximation, 
+using either heuristics or optimizing their positions to maximize the approximate
+marginal likelihood. 
+\citet{houlsby2012collaborative} use a FITC approximation~\cite{snelson2006sparse} 
+with their EP method to limit the costs of inference. However, in practice, FITC 
+is unsuitable for datasets with more than a few thousands points
+as it is not amenable to distributed computation, nor does it provide a way to 
+limit the computational cost of the $\mathcal{O}(P^2)???$ term, which may 
+become limiting when the number of data points is large\cite{hensman_scalable_2015}.  
+We turn to stochastic variational inference (SVI) ~\cite{hoffman2013stochastic} 
+to derive a more scalable approach
+for Gaussian process preference learning, including
+a multi-user model founded on Bayesian matrix factorization.
+% how does hensman 2015 optimize inducing points? This is one selling point of SVI. 
+% Advantages of VB:  Nickisch 2008 got poorer results for VB methods they tried than EP. But our method may be different?, Seeger 2000
+First, we define an approximate posterior that can be estimated using SVI, 
+then provide the update equations for an iterative algorithm to optimize
+this approximation. We begin with the model for a single user, then extend this to the multi-user case using matrix factorization. 
+
+\subsection{Variational Inference for a Single User}
+
+Due to the non-Gaussian likelihood, Equation \ref{eq:plphi},
+the posterior distribution over $\bs f$ contains intractable integrals:
+\begin{flalign}
+p(\bs f | \bs y, k_{\theta}, a_0, b_0) = 
+\frac{\int \prod_{k=1}^P \Phi(z_k) \mathcal{N}(\bs f; \bs 0, \bs K_{\theta}s) 
+\mathcal{G}(s; a_0, b_0) d_s}{\int \int \prod_{k=1}^P \Phi(z_k) \mathcal{N}(\bs f'; \bs 0, \bs K_{\theta}s) 
+\mathcal{G}(s; a_0, b_0) d s d f' }.
+\label{eq:post_single}
+\end{flalign}
+We approximate this with a Gaussian likelihood, similar to the expectation propagation
+approach~\cite{rasmussen_gaussian_2006} and the extended Gaussian process 
+approach~\cite{steinberg2014extended,reece2011determining}:
+
+This approach introduces a linear relationship between 
+likelihood and Gaussian process, 
+which simplifies the integral in the denominator of the posterior in Equation \ref{eq:post_single}.
+The integral over $s$ remains intractable, however, and the linearization 
+requires a matrix, $\bs G$, which is not available analytically. We therefore  
+
+\subsection{Stochastic Variational Inference for a Single User}
+\subsection{Stochastic Variational Inference for Multiple Users}
+\subsection{OLD}
+
+
+Chu and Ghahramani
+used gradient descent to optimise a Laplace approximation. 
+However, this approach produces a  approximation, 
+which 
+%Furthermore, the presented approach is not scalable as it requires
+%$\mathcal{O}(n^3)$ computation and $\mathcal{O}(n^2)$ memory, 
+%where $n$ is the number of observations. 
+We address the desire for a better approximation by adapting a variational method based on the extended Kalman filter (EKF) \cite{reece2011determining,steinberg2014extended} 
+to the preference likelihood given by Equation \ref{eq:pl}.
+%We refer to the set of pairwise labels for the $k$th pair of items as $\bs y_k$.
+%To permit inference using the variational method, our model approximates
+To make inference tractable, we
+approximate the preference likelihood using a Gaussian distribution:
+$p( v_k \succ u_k | f(v_k), f(u_k) ) \approx \mathcal{N}( v_k \succ u_k; \Phi(\hat{f}_{v_k} - \hat{f}_{u_k}/\sqrt 2), \nu_{k})$. 
+The variance $v_k$ is estimated by moment matching with 
+the variance of a beta posterior distribution $\mathcal{B}(p( v_k \succ u_k | f(v_k), f(u_k) ); 1 + [v_k \succ u_k], 2 - v_k \succ u_k)$.
+The values of $v_k$ for all pairs form a diagonal matrix $\bs Q$.
+%Further details are given in \cite{reece2011determining}. % cite the heatmaps paper
+%shouldn't we also explain G? Is this an innovative bit for preference learning?
+This approximation means that the posterior distribution over $f$ for items in the training set
+is also Gaussian: $p(f(\bs x) | \bs y) \approx \mathcal{N}(f(\bs x) | \hat{\bs f}, \bs C )$
+where $\bs x$ is a matrix of input features for the training items. 
+Variational inference is then used to optimise the mean $\hat{\bs f}$ and covariance $\bs C$. 
+%and the posterior distribution over the inverse scale $s$.
+by maximising a lower bound, $\mathcal{L}$, 
+on the log marginal likelihood, $p(\bs y | \theta, a_0, b_0)$:
+%We derive this bound using Equations \ref{eq:vblb} 
+%to \ref{eq:vblb_terms} in Appendix \ref{sec:vb_eqns}, giving the following:
+\begin{flalign}
+\label{eq:lowerbound}
+& \mathcal{L}(q) \approx - \frac{1}{2} \left\{ L \log 2\pi + \log |\bs Q| - \log|\bs C| + \log|\bs K| \right. \nonumber&&\\
+& \left. + (\hat{\bs f} - \bs\mu)\bs K^{-1}(\hat{\bs f} - \bs\mu) \right. \nonumber&&\\
+& \left. + (\bs y - \Phi(\hat{\bs z}))^T \bs Q^{-1} (\bs y - \Phi(\hat{\bs z}))\right\} \nonumber&&\\
+& + \Gamma(a) - \Gamma(a_0) + a_0(\log b_0) + (a_0-a)\hat{\ln s} \nonumber&&\\
+& + (b-b_0) \hat{s} - a \log b, &&
+\end{flalign}
+% should G appear in here as it is also optimised in a variational manner?
+where $L$ is the number of observed preference labels, 
+$\bs y = \left[v_1 \succ u_1, ..., v_L \succ u_L\right]$ is a vector of binary preference labels,
+$\hat{\ln s}$ and $\hat s$ are expected values of $s$,
+and $\hat{\bs z} = \left\{ \frac{\hat{f}_{v_k} - \hat{f}_{u_k}}{\sqrt 2} \forall k=1,...,P\right\}$.
+%\label{eq:zhat}.
+%$\mathbb{E}_q$ is an expectation with respect to the
+%variational posterior distribution, $q(\bs f, s)$.
+%We apply a variational inference algorithm learn optimal values for the variational parameters 
+%$\bs f$, $\bs C$ and $\bs s$ and obtain an approximate posterior over the latent function values $\bs f$.
+
+The variational approach described so far requires a scalable inference algorithm.
+We therefore adapt stochastic variational inference (SVI) 
+\cite{hensman2013gaussian,hensman_scalable_2015} to preference learning.
+For SVI, we assume $M$ \emph{inducing points} with features $\bs x_m$. 
+The inducing points act as a substitute for the complete set of feature vectors of the observed arguments,
+and allow us to choose $M << N$ to limit the computational
+and memory requirements. 
+To choose representative inducing points, we use K-means to rapidly cluster the feature vectors, 
+then used the cluster centres as inducing points.
+Given the inducing points, SVI further limits computational costs by using an iterative algorithm 
+that only considers a subset of the data containing $P_n << P$ pairs at each iteration. 
+% As with $M$, the value of $P_m$ can be chosen by the developer to fit their hardware requirements. 
+% Smaller values will consider less data at each iteration and therefore may require a larger number of iterations to converge.
+% However, convergence is hard to predict and depends on the properties of the dataset used.
+The algorithm proceeds as follows:
+\begin{enumerate}
+\item Randomly initialise the mean at the 
+inducing points, $\hat{\bs f}_{m}$, the covariance of the inducing points, $\bs S$, 
+ the inverse function scale expectations $\hat{s}$ and $\hat{\ln s}$,
+ and the Jacobian of the pairwise label probabilities, $\bs G$.
+% The latter is required to enable a first order Taylor series approximation, which makes the iterative updates tractable.
+\item Select a random subset of $P_n$ pairwise labels.
+\item Compute the mixing coefficient, $\rho_i=(n + \mathrm{delay})^{-\mathrm{forgetting_rate}}$, which controls the 
+rate of change of the estimates, and the weight $w_n = \frac{P}{P_n}$, which weights each update
+ according to the size of the random subsample.
+\item Update each variable in turn using equations below.
+\item Repeat from step 2 until convergence.
+\item Use converged values to make predictions.
+\end{enumerate}
+The equations for the updates at iteration $n$ are as follows:
+\begin{flalign}
+%self.invKs_mm.dot(Ks_nm_i.T).dot(self.G.T)
+%        Lambda_i = (Lambda_factor1 / Q).dot(Lambda_factor1.T)
+& \bs S^{-1}_n  = (1 - \rho_n) \bs S^{-1}_{n-1} + \rho_n\left( \hat{s}\bs K_{mm}^{-1} \right. \nonumber & \\ 
+& \left. + w_n\bs K_{mm}^{-1}\bs K_{nm}^T \bs G^T \bs Q^{-1} \bs G \bs K_{nm} \bs K_{mm}^{-T} \right)& 
+\label{eq:S} \\
+& \hat{\bs f}_{m,n}  = \bs S_n \left( 
+(1 - \rho_n) \bs S^{-1}_{n-1} \hat{\bs f_{m,n-1}}  + \rho_n w_n 
+\bs K_{mm}^{-1} \right. \nonumber & \\
+& \left.\bs K_{nm}^T \bs G^T Q^-1 \left( \frac{1+[v_k\succ u_k]}{3}  - \Phi(\hat{\bs z}_n) - \bs G \hat{\bs f} \right) \right) & \\
+%\hat{\bs f}_n & = \bs K_{nm} \bs K_{mm}^{-1} \bs S &\\
+%\bs C_n & = \bs K + (\bs K_{*m}\bs K_{mm}^{-1} \bs S - 
+%\bs K_{nm}\bs K_{mm}^{-1}) \bs K_{mm}^{-T}\bs K_{nm}^T&\\
+&\hat{s} = \frac{2a_0 + N}{2b}
+& \\
+& \hat{\ln s} = \Psi(2a_0 + N) - \log(2b) & \\
+ & \bs G = \frac{1}{ 2\pi}  \exp\left(-\frac{1}{2} \hat{\bs z}_n ^2\right) \label{eq:G}
+\end{flalign}
+where  $\bs K_{mm}$ is the covariance between values at the inducing points,
+$\bs K_{nm}$ is the covariance between the subsample of pairwise labels and the inducing points,
+$\hat{\bs z}_n$ is the estimated preference label likelihood for the $n$th subsample,
+$b = b_0 + \frac{1}{2} \mathrm{Tr}\left(\bs K_j^{-1}
+\left( \bs\Sigma_j + (\hat{\bs f}_j - \bs\mu_{j,i})(\hat{\bs f}_j - \bs\mu_{j,i})^T \right)\right) $, 
+and $\Psi$ is the digamma function.
+Given the converged estimates, we can make predictions 
+for test arguments with feature vectors $\bs x_*$. The posteriors for the latent 
+function values $\bs f_*$ at the test points have mean and covariance given by:
+\begin{flalign}
+\hat{\bs f_*} & =  \bs K_{*m} \bs K_{mm}^{-1} \hat{\bs f}_{m} \\
+%         covpair_uS = Ks_nm.dot(self.invKs_mm_uS)
+%        fhat = covpair_uS.dot(self.u_invSm) 
+%\bs W^*\left(\Phi(\bs \hat{z}) - \sigma(\hat{\bs f}_j) + \bs G(\hat{\bs f}_j - \bs\mu_j )\right) &\\
+%             covpair =  Ks_nm.dot(self.invKs_mm)
+%            C = Ks_nn + (covpair_uS - covpair.dot(self.Ks_mm)).dot(covpair.T)
+\bs C_* & = \frac{\bs K_{**}}{\hat{s}}
++ \bs K_{*m}\bs K_{mm}^{-1} ( \bs S - \bs K_{mm}) \bs K_{mm}^{-T}\bs K_{*m}^T, &
+%\bs\Sigma_j^{*} &= \hat{\bs K}^{**}_j -\bs W_j^* \bs G_j \hat{\bs K}^*_j, \label{eq:f_cov}
+\end{flalign}
+where $\bs K_{*m}$ is the covariance between the test items and the inducing
+points.
+
+% We propose a different inference scheme using , which approximates the full parameter distributions
+% and allows the developer to reduce the memory requirements to their required level.
+% To develop our SVI approach, we adapt a variational inference method  We further adapt this approach to preference learning
+%and show how it can be practically applied to NLP problems with large numbers of input features
+%by optimising a bound on the marginal likelihood using gradient ascent.
+ 

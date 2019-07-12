@@ -1,0 +1,129 @@
+from data_loader import load_my_data_separate_args, load_single_file_separate_args
+from data_loading import load_ling_features, load_embeddings
+from gp_pref_learning import GPPrefLearning
+from preproc_raw_data import generate_gold_CSV
+from tests import TestRunner, get_noisy_fold_data, get_docidxs_from_ids, get_doc_token_seqs, get_mean_embeddings, \
+    compute_lengthscale_heuristic
+import numpy as np
+import logging
+import os
+from os import listdir
+import vocabulary_embeddings_extractor
+
+def load_dataset(dataset):
+    data_root_dir = os.path.expanduser("~/data/personalised_argumentation/")
+    dirname = data_root_dir + 'argument_data/UKPConvArg1Strict-XML/'
+    csvdirname = data_root_dir + 'argument_data/%s-new-CSV/' % dataset
+    embeddings_dir = './data/'
+
+    generate_gold_CSV(dirname, csvdirname)  # select only the gold labels
+
+    # Load the train/test data into a folds object. -------------------------------------------------------------------
+    # Here we keep each the features of each argument in a pair separate, rather than concatenating them.
+    print(('Loading train/test data from %s...' % csvdirname))
+
+    files = listdir(csvdirname)
+
+    for file_name in files:
+        if file_name.split('.')[-1] != 'csv':
+            print("Skipping files without .csv suffix: %s" % csvdirname + '/' + file_name)
+            files.remove(file_name)
+
+    word_to_indices_map, word_index_to_embeddings_map, index_to_word_map = vocabulary_embeddings_extractor.load_all(
+        embeddings_dir + 'vocabulary.embeddings.all.pkl.bz2')
+
+    person_train = []
+    a1_train = []
+    a2_train = []
+    ids_train = []
+    prefs_train = []
+    X_a1 = []
+    X_a2 = []
+
+    for file_name in files:
+        Xa1, Xa2, labels, ids, turkerids, a1, a2 = load_single_file_separate_args(csvdirname, file_name,
+                                                                                  word_to_indices_map, None)
+
+        X_a1.extend(Xa1)
+        X_a2.extend(Xa2)
+
+        a1_train.extend(a1)
+        a2_train.extend(a2)
+
+        person_train.extend(turkerids)
+        prefs_train.extend(labels)
+        ids_train.extend(ids)
+
+    trainids = np.array([ids_pair.split('_') for ids_pair in ids_train])
+    docids = np.unique(trainids)
+
+    a1_train = get_docidxs_from_ids(docids, trainids[:, 0])
+    a2_train = get_docidxs_from_ids(docids, trainids[:, 1])
+
+    X, uids, utexts = get_doc_token_seqs((a1_train, a2_train), [X_a1, X_a2], (a1_train, a2_train))
+
+    ling_feat_spmatrix, docids = load_ling_features(dataset)
+
+    logging.info("Converting texts to mean embeddings (we could use a better sentence embedding?)...")
+    items_feat = get_mean_embeddings(load_embeddings(word_index_to_embeddings_map), X)
+    logging.info("...embeddings loaded.")
+
+    # trim away any features not in the training data because we can't learn from them
+    valid_feats = np.sum((items_feat[a1_train] != 0) + (items_feat[a2_train] != 0), axis=0) > 0
+    items_feat = items_feat[:, valid_feats]
+
+    logging.info("Obtaining linguistic features for argument texts.")
+    # trim the features that are not used in training
+    valid_feats_ling = np.sum((ling_feat_spmatrix[a1_train, :] != 0) +
+                              (ling_feat_spmatrix[a2_train, :] != 0), axis=0) > 0
+    valid_feats_ling = np.array(valid_feats_ling).flatten()
+    ling_items_feat = ling_feat_spmatrix[uids, :][:, valid_feats_ling].toarray()
+    items_feat = np.concatenate((items_feat, ling_items_feat), axis=1)
+    logging.info("...loaded all linguistic features for training and test data.")
+
+    print('Found %i features.' % items_feat.shape[1])
+
+    ndims = items_feat.shape[1]
+
+    ls_initial = compute_lengthscale_heuristic('both', 'word_mean', embeddings,
+                                                    ling_feat_spmatrix, docids, folds,
+                                                    index_to_word_map)
+
+    return items_feat, a1_train, a2_train, prefs_train, ls_initial, ndims
+
+if __name__ == '__main__':
+
+    acc = 1.0
+    dataset_increment = 0
+
+    # Train a model on the UKPConvArgStrict data
+
+    dataset = 'UKPConvArgStrict'
+    items_feat, a1_train, a2_train, prefs_train, ls_initial, ndims = load_dataset(dataset)  # reload only if we use a new dataset
+
+    model = GPPrefLearning(ninput_features=ndims, ls_initial=ls_initial, verbose=False,
+                                shape_s0=2.0, rate_s0=200.0, rate_ls=1.0 / np.mean(ls_initial),
+                                use_svi=True, ninducing=500, max_update_size=200, kernel_combination='*',
+                                forgetting_rate=0.7, delay=1.0)
+
+    model.max_iter_VB = 2000
+
+    print("no. features: %i" % items_feat.shape[1])
+
+    model.fit(a1_train, a2_train, items_feat, np.array(prefs_train, dtype=float) - 1, optimize=False,
+              input_type='zero-centered')
+
+    logging.info("**** Completed training GPPL ****")
+
+    # Save the model in case we need to reload it
+
+    import pickle
+
+    pklfile = './model.pkl'
+    with open(pklfile, 'wb') as fh:
+        pickle.dump(model, fh)
+
+    # Now load some test documents and extract their features
+
+
+    # Run the testing script

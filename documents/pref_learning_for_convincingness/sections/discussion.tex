@@ -1,0 +1,19 @@
+\section{Conclusions and Future Work}
+
+We presented a novel Bayesian approach to predicting argument convincingness from pairwise labels using
+Gaussian process preference learning (GPPL).
+Using recent advances in approximate inference, we developed a scalable algorithm for GPPL 
+that is suitable for large NLP datasets.
+Our experiments demonstrated that our method significantly outperforms the state-of-the-art
+on a benchmark dataset for argument convincingness, 
+particularly when noisy and conflicting pairwise labels are used in training.
+Active learning experiments showed that GPPL is an effective model for cold-start situations 
+and that the convincingness of Internet arguments can be predicted reasonably 
+well given only a small number of samples.
+The results also showed that linguistic features and word embeddings provide complementary information,
+and that GPPL can be used to automatically identify relevant features.
+
+Future work will evaluate our approach on other NLP tasks 
+where reliable classifications may be difficult to obtain, 
+such as learning to classify text from implicit user feedback~\cite{joachims2002optimizing}.
+We also plan to investigate training the GP using absolute scores in combination with pairwise labels.

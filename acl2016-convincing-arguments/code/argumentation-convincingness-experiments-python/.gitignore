@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+/bin/
+=======
+/.DS_Store
+/.project
+/.pydevproject
+/data_loader.pyc
+/data_loader_regression.pyc
+/vocabulary_embeddings_extractor.pyc
+>>>>>>> branch 'pref_learning_expts' of https://simpson@git.ukp.informatik.tu-darmstadt.de/simpson/acl2016-convincing-arguments.git
