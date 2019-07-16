@@ -1,3 +1,48 @@
+# Predicting Humorousness and Metaphor Novelty with Gaussian Process Preference Learning
+
+This project contains source code and data for a Gaussian Process
+Preference Learning (GPPL) system for predicting humorousness and
+metaphor novelty.
+
+If you reuse the software or data, please use the following citation:
+
+> Edwin Simpson, Erik-Lân Do Dinh, Tristan Miller, and Iryna
+> Gurevych. [Predicting humorousness and metaphor novelty with
+> Gaussian process preference
+> learning](https://fileserver.ukp.informatik.tu-darmstadt.de/UKP_Webpage/publications/2019/2019_ACL_GPPL_for_Funniness_and_Metaphor_Novelty_Ranking.pdf). In
+> [Proceedings of the 57th Annual Meeting of the Association for
+> Computational Linguistics (ACL 2019)](http://www.acl2019.org/),
+> July 2019. To appear.
+
+> **Abstract:** The inability to quantify key aspects of creative
+> language is a frequent obstacle to natural language understanding.
+> To address this, we introduce novel tasks for evaluating the
+> creativeness of language—namely, scoring and ranking text by
+> humorousness and metaphor novelty.  To sidestep the difficulty of
+> assigning discrete labels or numeric scores, we learn from pairwise
+> comparisons between texts.  We introduce a Bayesian approach for
+> predicting humorousness and metaphor novelty using Gaussian process
+> preference learning (GPPL), which achieves a Spearman's ρ of 0.56
+> against gold using word embeddings and linguistic features.  Our
+> experiments show that given sparse, crowdsourced annotation data,
+> ranking using GPPL outperforms best–worst scaling. We release a new
+> dataset for evaluating humour containing 28,210 pairwise comparisons
+> of 4030 texts, and make our software freely available.
+
+```
+@inproceedings{simpson2019predicting,
+   author    = {Edwin Simpson and Do Dinh, Erik-L{\^{a}}n and
+                Tristan Miller and Iryna Gurevych},
+   title     = {Predicting Humorousness and Metaphor Novelty with
+                {Gaussian} Process Preference Learning},
+   booktitle = {Proceedings of the 57th Annual Meeting of the
+                Association for Computational Linguistics (ACL 2019)},
+   month     = jul,
+   year      = {2019},
+   note      = {To appear},
+}
+```
+
 ## Dependencies
 
 Dependencies for running gp_pref_learning model:
@@ -7,49 +52,6 @@ Dependencies for running gp_pref_learning model:
    * numpy==1.12.1
 
 For running the experiments, please see the requirements.txt for further dependencies. 
-
-## How to run
-
-We introduce a scalable Bayesian preference
-learning method for identifying convincing ar-
-guments in the absence of gold-standard rat-
-ings or rankings. In contrast to previous work,
-we avoid the need for separate methods to
-perform quality control on training data, pre-
-dict rankings and perform pairwise classifica-
-tion. Bayesian approaches are an effective so-
-lution when faced with sparse or noisy train-
-ing data, but have not previously been used
-to identify convincing arguments. One issue
-is scalability, which we address by develop-
-ing a stochastic variational inference method
-for Gaussian process (GP) preference learn-
-ing. We show how our method can be ap-
-plied to predict argument convincingness from
-crowdsourced data, outperforming the previ-
-ous state-of-the-art, particularly when trained
-with small amounts of unreliable data. We
-demonstrate how the Bayesian approach en-
-ables more effective active learning, thereby
-reducing the amount of data required to iden-
-tify convincing arguments for new users and
-domains. While word embeddings are princi-
-pally used with neural networks, our results
-show that word embeddings in combination
-with linguistic features also benefit GPs when
-predicting argument convincingness.
-
-**Contact person:** Edwin Simpson, simpson@ukp.informatik.tu-darmstadt.de
-
-https://www.ukp.tu-darmstadt.de/
-
-https://www.tu-darmstadt.de/
-
-Don't hesitate to send us an e-mail or report an issue, if something is broken (and it shouldn't be)
-or if you have further questions.
-
-> This repository contains experimental software and is published for the sole purpose of giving additional background
-details on the respective publication.
 
 ## Project Structure
 
@@ -273,3 +275,19 @@ For the prior precision:
  as follows...  
    * shape_s0 = n / 2.0
    * rate_s0 = v * n / 2.0
+
+## Contact
+
+**Contact person:** Edwin Simpson,
+simpson@ukp.informatik.tu-darmstadt.de
+
+https://www.ukp.tu-darmstadt.de/
+
+https://www.tu-darmstadt.de/
+
+Don't hesitate to send us an e-mail or report an issue, if something
+is broken (and it shouldn't be) or if you have further questions.
+
+> This repository contains experimental software and is published for
+> the sole purpose of giving additional background details on the
+> respective publication.
