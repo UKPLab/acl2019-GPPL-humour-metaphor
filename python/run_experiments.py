@@ -435,12 +435,12 @@ def run(cut, cut_mode):
     embeddings = load_embeddings(path=OPTIONS['emb_path'] + OPTIONS['task'])
 
     # training/dev/test set randomization and splitting
-    if '100-100' in OPTIONS:
+    if OPTIONS['task4']:
         train_perc = 1
         dev_perc = 0
         test_perc = 0
         train_split, train_idxs, dev_idxs, test_idxs = split_data(pairs, idx_instance_list, train_perc, dev_perc, test_perc, cut=cut, cut_mode=cut_mode)
-        logging.warn('Training split is 100%, using complete set as dev set (emulating data that is available to BWS)...')
+        logging.warn('Training split is 100%, using complete set as test set (emulating data that is available to BWS)...')
         dev_idxs = train_idxs
     else:
         train_perc = 0.6
@@ -530,7 +530,7 @@ param_grid['optimization'] = [False]  #, True]
 # no features, all, and ablation
 features = ['frequency', 'polysemy', 'ngrams']  # available features
 param_grid['add_features'] = list(chain.from_iterable(combinations(features, r) for r in [0, len(features) - 1, len(features)]))
-#param_grid['100-100'] = [True]
+param_grid['task4'] = [False]
 
 # run grid of options
 if __name__ == '__main__':
@@ -541,6 +541,8 @@ if __name__ == '__main__':
 
     task = sys.argv[1]
     param_grid['cut'] = [float(c) for c in sys.argv[2].split(',')] if len(sys.argv) > 2 else [None]
+    if len(sys.args) > 3 and sys.args[3] == 'task4':
+        param_grid['task4'] = [True]
     experiment_dir = 'experiment_{}_{}'.format(task, datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     os.makedirs(experiment_dir)
 

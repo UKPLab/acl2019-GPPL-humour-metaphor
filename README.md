@@ -89,20 +89,39 @@ The model will be trained with frequency, ngram and average word embeddings feat
 
 ### Task 2
 
+For the humour dataset:
+```
+python run_experiments.py humour
+```
+
+For the metaphor dataset:
+```
+python run_experiments.py metaphor
+```
 
 ### Task 3
 
 For the humour dataset:
 ```
-python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66,1.0 
+python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66 
 ```
 
 For the metaphor dataset:
 ```
-python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66,1.0 
+python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66
 ```
 
 ### Task 4
+
+For the humour dataset:
+```
+python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66 task4 
+```
+
+For the metaphor dataset:
+```
+python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66 task4 
+```
 
 ## Contact
 
