@@ -2,3 +2,6 @@
 - change paths
 - add remaining resource preprocessing
 - adapt README.txt
+
+ES:
+- check that the edited notebook scripts still work (need to find the previous results on D169 to run this test?)

@@ -45,19 +45,16 @@ If you reuse the software or data, please use the following citation:
 
 ## Dependencies
 
-Dependencies for running gp_pref_learning model:
-
-   * scikit-learn==0.18.1
-   * scipy==0.19.0
-   * numpy==1.12.1
+   * pandas==0.23.3
+   * scikit-learn==0.19.2
+   * scipy==1.1.0
+   * numpy==1.15
 
 For running the experiments, please see the requirements.txt for further dependencies. 
 
 ## Project Structure
 
 * data -- a folder containing small data files + default place to generate dataset files for the experiments
-* documents -- sources for the paper
-* error_analysis -- working data files for error analysis
 * python/analysis -- experiment code
 * python/analysis/habernal_comparison -- experiment code for use with the datasets discussed in paper, originally obtained from
 https://github.com/UKPLab/acl2016-convincing-arguments
