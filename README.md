@@ -71,6 +71,39 @@ pip install -r requirements.txt
 For the metaphor novelty experiments, download the VUAMC crowd data from ???
 and copy to data/vuamc_crowd/all.csv.
 
+
+### Task 1
+
+For the humour dataset, run GPPL:
+```
+python run_task1_experiment.py humour
+```
+Now, look in the results directory to see the output from the first step. 
+In Task_1_analysis_humour.py, change the resfile variable to point to the new results csv file.
+Next, run:
+```
+python Task_1_analysis_humour.py
+```
+This will produce plots in results directory and output a number of correlation measures shown in the paper.
+It will also show classification performance in separating funny and non-funny texts (using the AUC metric),
+and inter-annotator agreement.
+
+The same process can be used for metaphor novelty data:
+```
+python run_task1_experiment.py metaphor
+```
+Now, set the resfile variable in Task_1_analysis_metaphor.py to the results csv file from the previous step, which 
+is in the results directory. Then run:
+```
+python Task_1_analysis_metaphor.py
+```
+This will produce another plot in the results directory and output correlation measures to the command line.
+
+### Task 2
+
+
+### Task 3
+
 We can use the run_experiments.py script to run GPPL. 
 It takes the following arguments:
 * dataset, which must be either 'metaphor' or 'humour'
@@ -82,15 +115,6 @@ If a list of cuts is supplied, GPPL will be tested with both
 'annotation' and 'pairs' strategies, as described in the paper.
 
 The model will be trained with frequency, ngram and average word embeddings features.
-
-### Task 1
-
-
-
-### Task 2
-
-
-### Task 3
 
 For the humour dataset:
 ```

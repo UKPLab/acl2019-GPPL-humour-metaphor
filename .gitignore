@@ -3,3 +3,6 @@ results/*
 .idea
 data/*
 env
+python/__pycache__
+python/models/__pycache__
+vuamc.pkl

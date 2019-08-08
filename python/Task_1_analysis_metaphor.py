@@ -5,13 +5,15 @@
 # To run, please see the readme for instructions on how to produce the GPPL scores.
 # 
 # Then, set the resfile variable below to point to the results of the previous step.
+
 import pandas as pd
 import os, logging, csv
 from scipy.stats.mstats import spearmanr, pearsonr
 import numpy as np
 
-resfile = os.path.expanduser('./results/experiment_metaphor_2019-02-28_16-42-11/results-2019-02-28_22-54-46.csv')
+# resfile = os.path.expanduser('./results/experiment_metaphor_2019-02-28_16-42-11/results-2019-02-28_22-54-46.csv')
 # resfile = os.path.expanduser('./results/debug_metaphor_2019-02-28_13-05-50/results-2019-02-28_13-05-50.csv')
+resfile = './results/debug_metaphor_2019-02-26_17-32-31/results-2019-02-26_17-32-31.csv'
 
 # Load the data
 data = pd.read_csv(resfile, usecols=[0,1,2])
@@ -223,7 +225,6 @@ for idx in range(len(diffs)):
     
     tot_rank_gppl = 0
     for otheridx in otheridxs:
-        print(otheridx)
         tot_rank_gppl -= rank_gppl[otheridx]
                 
     otherids = pairs[pairs[:, 1] == idx, 0]
@@ -234,8 +235,8 @@ for idx in range(len(diffs)):
     #print('Total rank differences: BWS=%i, GPPL=%i' % (tot_rank_gppl, tot_rank_bws))
     all_comp_gppl.append(tot_rank_gppl)
 
-print('Correlation between rank diff and total ranks of compared items: %f' % spearmanr(all_comp_gppl, diffs)[0])
+print('Spearman correlation between rank diff and total ranks of compared items: %f' % spearmanr(all_comp_gppl, diffs)[0])
 
 # pearson correlation for the above.
-pearsonr(all_comp_gppl, diffs)
+print('Pearson correlation for same: %f' % pearsonr(all_comp_gppl, diffs)[0])
 

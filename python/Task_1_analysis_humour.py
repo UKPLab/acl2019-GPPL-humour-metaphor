@@ -6,7 +6,9 @@
 # Please see the readme for instructions on how to produce the GPPL predictions that are required for running this script.
 # 
 # Then, set the variable resfile to point to the ouput folder of the previous step. 
-# 
+#
+import string
+
 import pandas as pd
 import os, logging, csv
 from nltk.tokenize import word_tokenize
@@ -14,8 +16,7 @@ from scipy.stats.mstats import spearmanr, pearsonr
 import numpy as np
 
 # Where to find the predictions and gold standard
-resfile = os.path.expanduser('./results/experiment_humour_2019-02-28_16-39-36/results-2019-02-28_16-39-36.csv')
-                             #experiment_humour_2019-02-26_20-44-52/results-2019-02-26_20-44-52.csv')
+resfile = './results/experiment_humour_2019-02-26_20-44-52/results-2019-02-26_20-44-52.csv'
 
 # Load the data
 data = pd.read_csv(resfile, usecols=[0,1,2])
@@ -102,7 +103,48 @@ print('Mean rho for random samples = %f' % (total / 10))
 # to separate funny and non-funny.
 
 # load the discrete labels
-catfile = os.path.expanduser('./results/experiment_humour_2019-02-28_16-39-36/cats/results-2019-02-28_20-45-25.csv')
+
+def get_cats(fname):
+    with open(os.path.join('./data/pl-humor-full', fname), 'r') as f:
+        for line in f:
+            line = line.strip()
+            for c in string.punctuation + ' ' + '\xa0':
+                line = line.replace(c, '')
+#            line = line.replace(' ', '').strip()
+#            line = line.replace('"', '')  # this is probably borked by tokenization?
+            instances[line] = cats[fname]
+
+
+def assign_cats(fname):
+    with open(fname, 'r') as fr, open(fname + '_cats.csv', 'w') as fw:
+        reader = csv.DictReader(fr)
+        writer = csv.DictWriter(fw, fieldnames=['id', 'bws', 'predicted', 'category', 'sentence'])
+        writer.writeheader()
+        for row in reader:
+            sentence = row['sentence'].strip()
+            for c in string.punctuation + ' ':
+                sentence = sentence.replace(c, '')
+#            sentence = row['sentence'].replace(' ','').strip()
+#            sentence = sentence.replace('`', '\'')  # this is probably borked by tokenization?
+#            sentence = sentence.replace('"', '')  # this is probably borked by tokenization?
+            row['category'] = instances[sentence]
+            writer.writerow(row)
+
+cats = dict()
+cats['jokes_heterographic_puns.txt'] = 'hetpun'
+cats['jokes_homographic_puns.txt'] = 'hompun'
+cats['jokes_nonpuns.txt'] = 'nonpun'
+cats['nonjokes.txt'] = 'non'
+
+instances = dict()
+
+for fname in cats.keys():
+    get_cats(fname)
+
+assign_cats(resfile)
+
+catfile = os.path.expanduser(resfile + '_cats.csv')
+#'./results/experiment_humour_2019-02-28_16-39-36/cats/results-2019-02-28_20-45-25.csv')
 cats = pd.read_csv(catfile, index_col=0, usecols=[0,3])
 
 cat_list = np.array([cats.loc[instance].values[0] if instance in cats.index else 'unknown' for instance in ids])
@@ -157,12 +199,12 @@ def load_crowd_data_TM(path):
     return pairs, idx_instance_list
 
 # Load the comparison data provided by the crowd
-datafile = os.path.expanduser('../data/pl-humor-full/results.tsv')
+datafile = os.path.expanduser('./data/pl-humor-full/results.tsv')
 
 pairs, idxs = load_crowd_data_TM(datafile)
 
 pairs = np.array(pairs)
-np.savetxt(os.path.expanduser('../data/pl-humor-full/pairs.csv'), pairs, '%i', delimiter=',')
+np.savetxt(os.path.expanduser('./data/pl-humor-full/pairs.csv'), pairs, '%i', delimiter=',')
 
 # For each item compute its BWS scores
 # but scale by the BWS scores of the items they are compared against.
