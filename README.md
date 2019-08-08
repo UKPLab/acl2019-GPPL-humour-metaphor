@@ -68,9 +68,6 @@ pip install -r requirements.txt
 
 ## How to run the experiments
 
-For the metaphor novelty experiments, download the VUAMC crowd data from ???
-and copy to data/vuamc_crowd/all.csv.
-
 
 ### Task 1
 
@@ -101,32 +98,43 @@ This will produce another plot in the results directory and output correlation m
 
 ### Task 2
 
-
-### Task 3
-
-We can use the run_experiments.py script to run GPPL. 
-It takes the following arguments:
-* dataset, which must be either 'metaphor' or 'humour'
-* cuts (optional), 
-which is a list of percentages of training data on which to train GPPL, 
-e.g. 5,10,33,66,100
-
-If a list of cuts is supplied, GPPL will be tested with both
-'annotation' and 'pairs' strategies, as described in the paper.
-
-The model will be trained with frequency, ngram and average word embeddings features.
-
 For the humour dataset:
 ```
-python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66,1.0 
+python run_experiments.py humour
 ```
 
 For the metaphor dataset:
 ```
-python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66,1.0 
+python run_experiments.py metaphor
 ```
 
+### Task 3
+
+For the humour dataset:
+```
+python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66 
+```
+
+For the metaphor dataset:
+```
+python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66
+```
+
+GPPL will be tested with both
+'annotation' and 'pairs' strategies, as described in the paper.
+The model will be trained with frequency, ngram and average word embeddings features.
+
 ### Task 4
+
+For the humour dataset:
+```
+python run_experiments.py humour 0.05,0.1,0.2,0.33,0.66 task4 
+```
+
+For the metaphor dataset:
+```
+python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66 task4 
+```
 
 ## Contact
 
