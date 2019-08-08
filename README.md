@@ -68,6 +68,7 @@ pip install -r requirements.txt
 
 ## How to run the experiments
 
+Before running the experiments with the metaphor novelty dataset, please unzip the file data/all.zip.
 
 ### Task 1
 
