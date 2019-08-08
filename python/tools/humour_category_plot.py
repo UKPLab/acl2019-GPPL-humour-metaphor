@@ -8,7 +8,7 @@ import sys
 from scipy.stats import pearsonr, spearmanr
 
 
-def create_plot(experiment_file):
+def create_plot(experiment_file, task):
     categories = {'hetpun': 'purple', 'hompun': 'blue', 'nonpun': 'orange', 'non': 'black'}
 
     if task == 'metaphor':
@@ -34,4 +34,4 @@ def create_plot(experiment_file):
         raise ValueError('task needs to be one of [metaphor, humor]')
 
 
-create_plot(sys.argv[1])
+create_plot(sys.argv[1], sys.argv[2])

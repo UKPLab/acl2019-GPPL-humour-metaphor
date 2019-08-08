@@ -1,37 +1,17 @@
-
 # coding: utf-8
 
 # ### Task 1: computing correlations between GPPL and BWS when no features are used, but all pairwise labels are used.
 # 
-# To run, first run ... to produce the GPPL scores.
+# To run, please see the readme for instructions on how to produce the GPPL scores.
 # 
 # Then, set the resfile variable below to point to the results of the previous step.
-
-# In[6]:
-
-
-get_ipython().run_line_magic('pylab', '')
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-get_ipython().run_line_magic('config', 'IPCompleter.greedy=True')
 import pandas as pd
 import os, logging, csv
-from nltk.tokenize import word_tokenize
 from scipy.stats.mstats import spearmanr, pearsonr
+import numpy as np
 
-
-# In[7]:
-
-
-# this file is missing?
-# resfile = os.path.expanduser('./results/debug_metaphor_2019-02-28_13-05-50/results-2019-02-28_13-05-50.csv')
-
-# using this for checking the dataset
 resfile = os.path.expanduser('./results/experiment_metaphor_2019-02-28_16-42-11/results-2019-02-28_22-54-46.csv')
-
-
-# In[8]:
-
+# resfile = os.path.expanduser('./results/debug_metaphor_2019-02-28_13-05-50/results-2019-02-28_13-05-50.csv')
 
 # Load the data
 data = pd.read_csv(resfile, usecols=[0,1,2])
@@ -39,13 +19,9 @@ ids = data['id'].values
 bws = data['novelty'].values
 gppl = data['predicted'].values
 
-
-# ### Hypothesis: Ties in the BWS Scores contribute to the discrepeancies between BWS and GPPL. 
+# ### Hypothesis: Ties in the BWS Scores contribute to the discrepeancies between BWS and GPPL.
 # 
 # GPPL scores are all unique, but BWS contains many ties. Selecting only one of the tied items increases the Spearman correlation.
-
-# In[2]:
-
 
 # Compute the task 1 results for table 5.
 
@@ -121,12 +97,9 @@ print('Mean rho for random samples = %f' % (total / 10))
 # 
 # However, some items are very distantly ranked -- we will investigate this in the following cells.
 
-# In[3]:
-
-
 # produce the plot for figure 1 showing distribution of rank differences between BWS and GPPL.
-
 from scipy.stats import rankdata
+import matplotlib.pyplot as plt
 
 rank_bws = rankdata(-bws)
 rank_gppl = rankdata(-gppl)
@@ -141,11 +114,7 @@ plt.tight_layout()
 
 plt.savefig(os.path.expanduser('./results/metaphor_rank_diff_hist.pdf'))
 
-
-# In[11]:
-
-
-from collections import defaultdict, namedtuple, OrderedDict
+from collections import namedtuple, OrderedDict
 import re
 
 def load_crowd_data_ED(path):
@@ -220,10 +189,6 @@ def load_crowd_data_ED(path):
     print('Total annotations: %i' % total_annos)
     return pairs, idx_instance_list
 
-
-# In[13]:
-
-
 # Load the comparison data
 OPTIONS = {}
 OPTIONS['data_mode'] = 'pairs'
@@ -231,25 +196,17 @@ OPTIONS['data_mode'] = 'pairs'
 pairs, idx_instance_list = load_crowd_data_ED(os.path.expanduser('./data/vuamc_crowd/all.csv'))
 #np.savetxt(os.path.expanduser('./data/pairs.csv'), pairs, '%i', delimiter=',')
 
-
-# In[14]:
-
-
 pairs = np.array(pairs)
 idxs = np.arange(len(idx_instance_list))
 upairids = np.unique(pairs)
 uidxs = np.unique(idxs)
 np.all(np.in1d(upairids, uidxs))
 
-
 # ### Weights of compared items
 # 
 # GPPL considers the weights of items that each item is compared against. 
 # Is there a correlation between the total rank of instances that a given instance is compared against, 
 # and the difference between BWS and GPPL scores?
-
-# In[5]:
-
 
 all_comp = []
 all_comp_gppl = []
@@ -278,10 +235,6 @@ for idx in range(len(diffs)):
     all_comp_gppl.append(tot_rank_gppl)
 
 print('Correlation between rank diff and total ranks of compared items: %f' % spearmanr(all_comp_gppl, diffs)[0])
-
-
-# In[6]:
-
 
 # pearson correlation for the above.
 pearsonr(all_comp_gppl, diffs)

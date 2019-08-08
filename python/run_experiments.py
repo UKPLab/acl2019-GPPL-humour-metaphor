@@ -15,9 +15,7 @@ sys.path.append("./python/analysis")
 sys.path.append("./python/models")
 sys.path.append("./python/analysis/habernal_comparison")
 
-from gp_classifier_vb import compute_median_lengthscales
 from gp_pref_learning import GPPrefLearning
-from tests import get_docidxs_from_ids, get_doc_token_seqs, get_mean_embeddings
 
 from collections import defaultdict, namedtuple, OrderedDict
 from datetime import datetime
@@ -43,12 +41,12 @@ import re
 
 
 # data paths
-HUMOUR_DATA_PATH = '/home/dodinh/pl-humor-full/results.tsv'
-HUMOUR_BWS_SCORES_PATH = '/home/dodinh/experiments/tacl2018-preference-convincing/bws/item_scores.txt'
-METAPHOR_DATA_PATH = '/home/dodinh/experiments/tacl2018-preference-convincing/python/data/vuamc_crowd/all.csv'
-VUAMC_PATH = '/home/dodinh/data/VU Amsterdam Metaphor Corpus/2541/VUAMC_with_novelty_scores.xml'
-NGRAMS_PATH = '/home/dodinh/data/ngrams/en/{}_{}grams.csv'  # task, n
-FREQUENCIES_PATH = 'data/resources/wikipedia_2017_frequencies.pkl'
+HUMOUR_DATA_PATH = './data/pl-humor-full/results.tsv'
+HUMOUR_BWS_SCORES_PATH = './data/bws/item_scores.txt'
+METAPHOR_DATA_PATH = './data/vuamc_crowd/all.csv'
+VUAMC_PATH = './data/VU Amsterdam Metaphor Corpus/2541/VUAMC_with_novelty_scores.xml'
+NGRAMS_PATH = './data/ngrams/en/{}_{}grams.csv'  # task, n
+FREQUENCIES_PATH = './data/resources/wikipedia_2017_frequencies.pkl'
 
 # set numpy seed
 rnd_seed = 41

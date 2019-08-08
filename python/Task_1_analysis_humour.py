@@ -3,44 +3,25 @@
 
 # ### Compute results for task 1 on the humour dataset. 
 # 
-# To run this, you first need to produce the GPPL predictions by....
+# Please see the readme for instructions on how to produce the GPPL predictions that are required for running this script.
 # 
 # Then, set the variable resfile to point to the ouput folder of the previous step. 
 # 
-# TODO:
-#    * see metaphor variant to work out which bits of this we actually need to keep
-#    * Loook at the files under bws_vs_gppl/python and in run_experiments.py to work out how to run GPPL. 
-
-# In[1]:
-
-
-get_ipython().run_line_magic('pylab', '')
-get_ipython().run_line_magic('matplotlib', 'inline')
-
-get_ipython().run_line_magic('config', 'IPCompleter.greedy=True')
 import pandas as pd
 import os, logging, csv
 from nltk.tokenize import word_tokenize
 from scipy.stats.mstats import spearmanr, pearsonr
-
-
-# In[4]:
-
+import numpy as np
 
 # Where to find the predictions and gold standard
 resfile = os.path.expanduser('./results/experiment_humour_2019-02-28_16-39-36/results-2019-02-28_16-39-36.csv')
                              #experiment_humour_2019-02-26_20-44-52/results-2019-02-26_20-44-52.csv')
-
-
-# In[22]:
-
 
 # Load the data
 data = pd.read_csv(resfile, usecols=[0,1,2])
 ids = data['id'].values
 bws = data['bws'].values
 gppl = data['predicted'].values
-
 
 # ### Ties in the BWS Scores contribute to the discrepeancies between BWS and GPPL
 # 
@@ -49,11 +30,7 @@ gppl = data['predicted'].values
 # 
 # Find the ties in BWS. Compute correlations between those tied items for the GPPL scores vs. original BWS scores and GPPL vs. scaled BWS scores.
 # Do the ties contribute a lot of the differences in the overall ranking?
-
-# In[ ]:
-
-
-# Another way to test if the ties contribute differences to the ranking: 
+# Another way to test if the ties contribute differences to the ranking:
 # Select only one random item from each tie and exclude the rest, then recompute. 
 print('with ties included:')
 print(spearmanr(bws, gppl)[0])
@@ -121,10 +98,7 @@ print('Mean rho for random samples = %f' % (total / 10))
 
 # ### Hypothesis: the ratings produced by BWS and GPPL can be used to separate the funny from non-funny sentences.
 
-# In[23]:
-
-
-# This cell compares the predicted ratings to the gold standard *classifications* to see if the ratings can be used
+# This compares the predicted ratings to the gold standard *classifications* to see if the ratings can be used
 # to separate funny and non-funny.
 
 # load the discrete labels
@@ -139,7 +113,6 @@ gunfunny = (cat_list == 'nonpun') | (cat_list == 'non')
 print('Number of funny = %i, non-funny = %i' % (np.sum(gfunny), 
                                                 np.sum(gunfunny) ) )
 
-
 # check classification accuracy  --  how well does our ranking separate the two classes
 from sklearn.metrics import roc_auc_score
 
@@ -150,15 +123,9 @@ goldidxs = gfunny | gunfunny
 gold = gold[goldidxs]
 
 print('AUC for BWS = %f' % roc_auc_score(gold, bws[goldidxs]) )
-
 print('AUC for GPPL = %f' % roc_auc_score(gold, gppl[goldidxs]) )
 
-
-# In[8]:
-
-
-# Defines a function for loading the humour data.
-
+# a function for loading the humour data.
 def load_crowd_data_TM(path):
     """
     Read csv and create preference pairs of tokenized sentences.
@@ -189,10 +156,6 @@ def load_crowd_data_TM(path):
                 pairs.append((idx_instance_list.index(B), idx_instance_list.index(A)))
     return pairs, idx_instance_list
 
-
-# In[12]:
-
-
 # Load the comparison data provided by the crowd
 datafile = os.path.expanduser('../data/pl-humor-full/results.tsv')
 
@@ -201,11 +164,7 @@ pairs, idxs = load_crowd_data_TM(datafile)
 pairs = np.array(pairs)
 np.savetxt(os.path.expanduser('../data/pl-humor-full/pairs.csv'), pairs, '%i', delimiter=',')
 
-
-# In[26]:
-
-
-# For each item compute its BWS scores 
+# For each item compute its BWS scores
 # but scale by the BWS scores of the items they are compared against.
 # This should indicate whether two items with same BWS score should 
 # actually be ranked differently according to what they were compared against.
@@ -223,14 +182,10 @@ def compute_bws(pairs):
 
 
 # ### Agreement and consistency of annotators
-# 
-
-# In[28]:
-
 
 # Table 3: For the humour dataset, compute the correlation between the gold standard and the BWS scores with subsets of data.
 
-# take random subsets of pairs so that each pair has only 4 annotations
+# Take random subsets of pairs so that each pair has only 4 annotations
 def get_pid(pair):
     return '#'.join([str(i) for i in sorted(pair)])
 
@@ -261,12 +216,7 @@ def compute_mean_correlation(nannos):
 for nannos in range(1, 5):
     compute_mean_correlation(nannos)
 
-
-# In[29]:
-
-
-# computer Krippendorff's alpha agreement score.
-
+# Compute Krippendorff's alpha agreement score.
 def alpha(U, C, L):
     '''
     U - units of analysis, i.e. the data points being labelled
@@ -321,17 +271,13 @@ print(len(U))
 
 alpha(U, C, L)
 
-
 # ### The ranking discrepancies are mostly very small
 # 
 # The plot below shows that the distribution is very small.
 # 
 # However, some items are very distantly ranked -- we will investigate this in the following cells.
-
-# In[ ]:
-
-
 from scipy.stats import rankdata
+import matplotlib.pyplot as plt
 
 rank_bws = rankdata(-bws)
 rank_gppl = rankdata(-gppl)
@@ -346,7 +292,6 @@ plt.tight_layout()
 
 plt.savefig(os.path.expanduser('./results/humor_rank_diff_hist.pdf'))
 
-
 # ### Reasons for discrepancies: Weights of compared items
 # 
 # GPPL ranks some instances lower because the items they lost against were much lower-ranked?
@@ -355,14 +300,7 @@ plt.savefig(os.path.expanduser('./results/humor_rank_diff_hist.pdf'))
 # Is there a correlation between the total rank of instances that a given instance is compared against, 
 # and the difference between BWS and GPPL scores?
 # 
-
-# In[ ]:
-
-
-all_comp = []
 all_comp_gppl = []
-all_worst_loss = []
-all_best_beaten = []
 
 # Do diffs correlate with sum(- worse_item_rank + better_item_rank)?
 for idx in range(len(diffs)):
@@ -373,90 +311,18 @@ for idx in range(len(diffs)):
     otheridxs = [np.argwhere(ids == otherid).flatten()[0] for otherid in otherids]
     
     tot_rank_gppl = 0
-    tot_rank_bws = 0
-    
-    best_beaten = 20000    
+
     for otheridx in otheridxs:
         tot_rank_gppl -= rank_gppl[otheridx]
-        tot_rank_bws -= rank_bws[otheridx]
-        
-        if rank_bws[otheridx] < best_beaten:
-            best_beaten = rank_bws[otheridx]
-        
-    worst_loss = 0
-        
+
+
     otherids = pairs[pairs[:, 1] == ids[idx], 0]
     otheridxs = [np.argwhere(ids == otherid).flatten()[0] for otherid in otherids]
     for otheridx in otheridxs:
         tot_rank_gppl += rank_gppl[otheridx]
-        tot_rank_bws += rank_bws[otheridx]
-        
-        if rank_bws[otheridx] > worst_loss:
-            worst_loss = rank_bws[otheridx]        
-            
+
     #print('Total rank differences: BWS=%i, GPPL=%i' % (tot_rank_gppl, tot_rank_bws))
-    all_comp.append(tot_rank_bws)
     all_comp_gppl.append(tot_rank_gppl)
-    all_worst_loss.append(worst_loss)
-    all_best_beaten.append(best_beaten)
-print('Correlation between rank diff and total ranks of compared items: %f' % spearmanr(all_comp, diffs)[0])
 print('Correlation between rank diff and total ranks of compared items: %f' % spearmanr(all_comp_gppl, diffs)[0])
-print('Correlation between rank diff and the best item that this item beat: %f' % spearmanr(all_best_beaten, diffs)[0])
-print('Correlation between rank diff and the worst item that beat this item: %f' % spearmanr(all_worst_loss, diffs)[0])
-
-
-# In[ ]:
-
-
-print(pearsonr(all_comp, diffs))
 print(pearsonr(all_comp_gppl, diffs))
-
-
-# In[ ]:
-
-
-counts = np.array(counts)
-tmp = deduped_pairs[counts<0, 0]
-deduped_pairs[counts < 0, 0] = deduped_pairs[counts < 0, 1]
-deduped_pairs[counts < 0, 1] = tmp
-deduped_pairs = deduped_pairs.astype(int)
-#print(deduped_pairs)
-
-
-# In[ ]:
-
-
-# Do the discrepancies correspond with worker disagreements (same pairs with multiple values)?
-# Counts close to 0 indicate lots of disagreemnts
-# What is the average count for the de-duplicated pairs for (a) items with > 1000 rank discrepancy 
-# and (b) the other items?
-# Is the difference statistically significant?
-
-big_diff_mean_counts = []
-small_diff_mean_counts = []
-
-for i, itemid in enumerate(ids):
-    # get all deduped pairs for this id
-    pairidxs = np.argwhere((deduped_pairs[:, 0] == itemid) | (deduped_pairs[:, 1] == itemid))
-    
-    mean_vote_counts = np.mean(np.abs(counts[pairidxs]))
-    
-    if i in bigdiffidxs:
-        big_diff_mean_counts.append(mean_vote_counts)
-    else:
-        small_diff_mean_counts.append(mean_vote_counts)
-
-
-# In[ ]:
-
-
-print(np.mean(big_diff_mean_counts))
-print(np.mean(small_diff_mean_counts))
-
-
-# In[ ]:
-
-
-print(np.var(big_diff_mean_counts))
-print(np.var(small_diff_mean_counts))
 
