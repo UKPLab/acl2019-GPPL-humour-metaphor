@@ -12,7 +12,7 @@ If you reuse the software or data, please use the following citation:
 > learning](https://fileserver.ukp.informatik.tu-darmstadt.de/UKP_Webpage/publications/2019/2019_ACL_GPPL_for_Funniness_and_Metaphor_Novelty_Ranking.pdf). In
 > [Proceedings of the 57th Annual Meeting of the Association for
 > Computational Linguistics (ACL 2019)](http://www.acl2019.org/),
-> July 2019. To appear.
+> July 2019, pp. 5716–5728.
 
 > **Abstract:** The inability to quantify key aspects of creative
 > language is a frequent obstacle to natural language understanding.
@@ -39,7 +39,7 @@ If you reuse the software or data, please use the following citation:
                 Association for Computational Linguistics (ACL 2019)},
    month     = jul,
    year      = {2019},
-   note      = {To appear},
+   pages     = {5716--5728},
 }
 ```
 
