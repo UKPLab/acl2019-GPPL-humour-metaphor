@@ -68,7 +68,7 @@ pip install -r requirements.txt
 
 ## How to run the experiments
 
-Before running the experiments with the metaphor novelty dataset, please unzip the file data/all.zip.
+Before running the experiments with the metaphor novelty dataset, please unzip the file `data/all.zip`.
 
 ### Task 1
 
@@ -77,7 +77,7 @@ For the humour dataset, run GPPL:
 python run_task1_experiment.py humour
 ```
 Now, look in the results directory to see the output from the first step. 
-In Task_1_analysis_humour.py, change the resfile variable to point to the new results csv file.
+In `Task_1_analysis_humour.py`, change the resfile variable to point to the new results csv file.
 Next, run:
 ```
 python Task_1_analysis_humour.py
@@ -90,7 +90,7 @@ The same process can be used for metaphor novelty data:
 ```
 python run_task1_experiment.py metaphor
 ```
-Now, set the resfile variable in Task_1_analysis_metaphor.py to the results csv file from the previous step, which 
+Now, set the resfile variable in `Task_1_analysis_metaphor.py` to the results csv file from the previous step, which 
 is in the results directory. Then run:
 ```
 python Task_1_analysis_metaphor.py
