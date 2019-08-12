@@ -137,6 +137,26 @@ For the metaphor dataset:
 python run_experiments.py metaphor 0.05,0.1,0.2,0.33,0.66 task4 
 ```
 
+## Copyright and licensing
+
+Copyright © 2019 Ubiquitous Knowledge Processing Lab, Technische
+Universität Darmstadt.
+
+The software contributed by the UKP Lab is licensed under the [Apache
+License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+The annotations and this documentation are licensed under a [Creative
+Commons Attribution 4.0 International
+License](https://creativecommons.org/licenses/by/4.0/) (CC-BY).
+
+To the best of our knowledge, the individual texts in the
+[SemEval-2017 humour
+data](https://www.informatik.tu-darmstadt.de/ukp/research_6/data/sense_labelling_resources/sense_annotated_english_puns/index.en.jsp)
+set we redistribute here are not eligible for copyright.  Please refer
+to the licence information in [the original data set
+distribution](http://alt.qcri.org/semeval2017/task7/data/uploads/semeval2017_task7.tar.xz)
+for further details.
+
 ## Contact
 
 **Contact person:** Edwin Simpson,
