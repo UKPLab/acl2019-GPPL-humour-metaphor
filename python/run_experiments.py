@@ -524,8 +524,7 @@ def run(cut, cut_mode):
 param_grid = OrderedDict()
 param_grid['kernelfunc'] = ['matern_3_2']  # ['diagonal']
 param_grid['ninducing'] = [500]
-param_grid['emb_path'] = ['/home/dodinh/data/embeddings/word2vec/GoogleNews-vectors-negative300.vocab_sub_']
-#                          '/home/dodinh/data/embeddings/komninos/wiki_extvec_']
+param_grid['emb_path'] = ['data/GoogleNews-vectors-negative300.vocab_sub_']
 param_grid['optimization'] = [False]  #, True]
 # no features, all, and ablation
 features = ['frequency', 'polysemy', 'ngrams']  # available features
@@ -541,7 +540,7 @@ if __name__ == '__main__':
 
     task = sys.argv[1]
     param_grid['cut'] = [float(c) for c in sys.argv[2].split(',')] if len(sys.argv) > 2 else [None]
-    if len(sys.args) > 3 and sys.args[3] == 'task4':
+    if len(sys.argv) > 3 and sys.argv[3] == 'task4':
         param_grid['task4'] = [True]
     experiment_dir = 'experiment_{}_{}'.format(task, datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
     os.makedirs(experiment_dir)
