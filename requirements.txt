@@ -1,5 +1,5 @@
 cycler==0.10.0
-joblib==0.12.5
+joblib==1.2.0
 kiwisolver==1.0.1
 lxml==4.2.5
 matplotlib==2.2.2
